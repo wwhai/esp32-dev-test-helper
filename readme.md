@@ -46,11 +46,12 @@ DATA\r\n
 \r\n
 ```
 ### 指令表
-| 指令                | 参数                   | 返回值                             | 说明                                 |
-| ------------------- | ---------------------- | ---------------------------------- | ------------------------------------ |
-| `AT+INFO\r\n`       | Void                   | `AT+INFO\r\n[version],[state]\r\n` | 查看固件信息                         |
-| `AT+RESET\r\n`      | Void                   | `AT+RESET\r\nOK\r\n`               | 重启指令                             |
-| `AT+ECHO[echo]\r\n` | Void                   | `AT+ECHO\r\n[echo]\r\n`            | 回显                                 |
-| `AT+PING\r\n`       | Void                   | `AT+PING\r\nOK\r\n`                | 测试设备工作状态，会发出三声“滴滴滴” |
-| `AT+M2[id]\r\n`     | [SlaverId]             | `AT+M2?id\r\nOK\r\n`               | Modbus从机模式配置ID                 |
-| `AT+M3[hex]\r\n`    | [自定义字节内容(数组)] | `AT+M3?hex\r\nOK\r\n`              | 配置自定义指令                       |
+| 指令                | 参数                   | 说明                                 |
+| ------------------- | ---------------------- | ------------------------------------ |
+| `AT+INFO\r\n`       | Void                   | 查看固件信息                         |
+| `AT+RESET\r\n`      | Void                   | 重启指令                             |
+| `AT+ECHO[echo]\r\n` | Void                   | 回显                                 |
+| `AT+PING\r\n`       | Void                   | 测试设备工作状态，会发出三声“滴滴滴” |
+| `AT+M1[id]\r\n`     | Void                   | ECHO MODE                            |
+| `AT+M2[id]\r\n`     | Void                   | 串口模拟协议                         |
+| `AT+M3[hex]\r\n`    | [自定义字节内容(数组)] | 配置自定义指令                       |

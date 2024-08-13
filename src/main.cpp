@@ -2,6 +2,7 @@
 #include "buzzer.h"
 #include "led.h"
 #include <WiFi.h>
+#include "user-uart-protocol.h"
 void setup()
 {
   Serial.begin(9600);
@@ -9,14 +10,58 @@ void setup()
   pinMode(buzzerPin, OUTPUT);
   resetBeep();
 }
+//
 String cmd;
-int Mode = 1;
-bool inWork = false;
+int Mode = 2;
+bool inWork = true;
+//
 void loop()
 {
+  ledBlink(2, 50);
+  cmd = "";
   if (Serial.available())
   {
     cmd = Serial.readStringUntil('\n');
+  }
+  if (cmd.startsWith("AT+WORK"))
+  {
+    inWork = true;
+    Serial.write("# Change to Working Mode.");
+    return;
+  }
+  if (cmd.startsWith("AT+CFG"))
+  {
+    inWork = false;
+    Serial.write("# Change to Config Mode.");
+    return;
+  }
+  if (inWork)
+  {
+    // Echo Mode
+    if (Mode == 1)
+    {
+    }
+    // 自定义 模式
+    if (Mode == 3)
+    {
+    }
+
+    // 串口模式
+    if (Mode == 2)
+    {
+      for (size_t i = 0; i < 30; i++)
+      {
+        for (size_t j = 0; j < 18; j++)
+        {
+          Serial.write(UserUartPacket[i][j]);
+        }
+      }
+      return;
+    }
+  }
+
+  if (!inWork)
+  {
     if (cmd.startsWith("AT+ECHO"))
     {
       Serial.write(cmd.c_str());
@@ -82,15 +127,5 @@ void loop()
       }
       return;
     }
-    if (cmd.startsWith("AT+WORK"))
-    {
-      inWork = true;
-    }
-    if (cmd.startsWith("AT+CFG"))
-    {
-      inWork = false;
-    }
   }
-
-  ledBlink(1);
 }

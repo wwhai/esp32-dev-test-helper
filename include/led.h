@@ -26,3 +26,13 @@ void ledBlink(int times)
         delay(100);
     }
 }
+void ledBlink(int times, int delayTimeMills)
+{
+    for (size_t i = 0; i < times; i++)
+    {
+        digitalWrite(ledPin, HIGH);
+        delay(delayTimeMills);
+        digitalWrite(ledPin, LOW);
+        delay(delayTimeMills);
+    }
+}
